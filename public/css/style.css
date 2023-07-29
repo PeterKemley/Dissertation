@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.body {
+  color: aliceblue;
+}
+
+.header {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 100px;
+  background: rgb(32, 100, 178);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 99;
+}
+
+
+.header .logo {
+  font-size: 1.7em;
+  color: whitesmoke;
+  margin-left: -50px;
+  text-decoration: none;
+}
+
+.nav a {
+  position: sticky;
+  font-size: 1em;
+  color: whitesmoke;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.home {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: lightblue;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px 100px 0;
+}
+
+.home .content {
+  max-width: 600px;
+  color: whitesmoke;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a {
+  background:
+    linear-gradient(
+      to right,
+      rgba(100, 200, 200, 1),
+      rgba(100, 200, 200, 1)
+    ),
+    linear-gradient(
+      to right,
+      rgba(255, 0, 0, 1),
+      rgba(255, 0, 180, 1),
+      rgba(0, 100, 200, 1)
+  );
+  background-size: 100% 3px, 0 3px;
+  background-position: 100% 100%, 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 400ms;
+}
+
+a:hover {
+  background-size: 0 3px, 100% 3px;
+}
+
+.btn-primary{
+  background-color: #00b7ff;
+  color: rgb(73, 73, 73);
+}
+
+.btn-primary:hover{
+  background-color: #ff9900;
+  color: rgb(73, 73, 73);
+}
+
+.logo_resize {
+    width: 80px;
+    height: auto;
+}
+
+.logo_resize:hover {
+  transition: background-size 4000ms;
+}

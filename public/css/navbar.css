@@ -1,0 +1,12 @@
+.navbar {
+    top: 0px;
+    width: 100%;
+    z-index: 100;
+    position:sticky;
+    background-color: #F05D5E;
+}
+  
+  /* Customize the color of the links in the navbar (optional) */
+.navbar-nav .nav-link {
+    color: #0F7173; /* Replace this with your desired text color */
+}
