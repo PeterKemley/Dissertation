@@ -32,15 +32,66 @@
                 </div>
               </div>
             </div>
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                <div class="input-group-append">
+                  <div class="input-group-text" onclick="toggleConfirmPasswordVisibility()">
+                    <i class="fas fa-eye" id="toggleConfirmPasswordIcon"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
             <button type="submit" class="btn btn-outline-primary">Register</button>
+            <div class="mt-3">
+            Already Have an account?
+            <a href="/login" class="btn btn-outline-success" style="padding-top: -20px;">Login</a></div>
+            </div>
           </form>
-          <div class="mt-3">
-            <a href="/login" class="btn btn-outline-success" style="padding-top: -20px;">Login</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
+<script>
+  // Function to show an alert with the response message
+  function showAlert(message) {
+    alert(message);
+  }
+
+  // Function to clear the form after submission
+  function clearForm() {
+    document.getElementById('registerForm').reset();
+  }
+
+  // Add an event listener to the form submission
+  document.getElementById('registerForm').addEventListener('submit', async (event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    const formData = new FormData(event.target); // Get the form data
+
+    //TroubleShootingArea
+    // Get the value of the message textarea
+    const messageElement = document.getElementById('name');
+    const message = messageElement.value;
+    //TroubleShootingArea
+
+    try {
+      const response = await fetch('/register', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.text(); // Get the response message from the server
+        showAlert(data); // Display the response message as an alert
+        clearForm(); // Clear the form fields
+      } else {
+        showAlert('Oops! Something went wrong. Please try again.'); // Show a generic error alert
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      showAlert('Oops! Something went wrong. Please try again.'); // Show a generic error alert
+    }
+  });
+</script>
 
   <script>
     // Function to toggle password visibility
@@ -56,6 +107,23 @@
         passwordInput.type = "password";
         togglePasswordIcon.classList.remove("fa-eye-slash");
         togglePasswordIcon.classList.add("fa-eye");
+      }
+    }
+  </script>
+
+  <script>
+  function toggleConfirmPasswordVisibility() {
+      const confirmPasswordInput = document.getElementById("confirmPassword");
+      const toggleConfirmPasswordIcon = document.getElementById("toggleConfirmPasswordIcon");
+
+      if (confirmPasswordInput.type === "password") {
+        confirmPasswordInput.type = "text";
+        toggleConfirmPasswordIcon.classList.remove("fa-eye");
+        toggleConfirmPasswordIcon.classList.add("fa-eye-slash");
+      } else {
+        confirmPasswordInput.type = "password";
+        toggleConfirmPasswordIcon.classList.remove("fa-eye-slash");
+        toggleConfirmPasswordIcon.classList.add("fa-eye");
       }
     }
   </script>
