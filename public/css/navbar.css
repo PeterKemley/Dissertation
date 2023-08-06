@@ -2,7 +2,7 @@
     top: 0px;
     width: 100%;
     z-index: 100;
-    position:sticky;
+    position:fixed;
     background-color: #F05D5E;
 }
   
@@ -10,3 +10,4 @@
 .navbar-nav .nav-link {
     color: #0F7173; /* Replace this with your desired text color */
 }
+

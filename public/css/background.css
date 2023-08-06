@@ -1,54 +1,88 @@
+/* Set the height of the HTML element to 100% of the viewport */
 html {
-	height:100%;
-  }
-  
-  body {
-	margin:0;
-  }
-  
-  .bg {
-	animation:slide 3s ease-in-out infinite alternate;
+	height: 100%;
+}
+
+/* Remove any default margin from the body */
+body {
+	margin: 0;
+}
+
+/* Styling for the background animation */
+.bg {
+	/* Apply the slide animation with a duration of 3 seconds, easing in and out, and repeating infinitely */
+	animation: slide 3s ease-in-out infinite alternate;
+	/* Create a background gradient with colors #6c3 and #09f */
 	background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
-	bottom:0;
-	left:-50%;
-	opacity:.5;
-	position:fixed;
-	right:-50%;
-	top:0;
-	z-index:-1;
-  }
-  
-  .bg2 {
-	animation-direction:alternate-reverse;
-	animation-duration:4s;
-  }
-  
-  .bg3 {
-	animation-duration:5s;
-  }
-  
-  .content {
-	background-color:rgba(255,255,255,.8);
-	border-radius:.25em;
-	box-shadow:0 0 .25em rgba(0,0,0,.25);
-	box-sizing:border-box;
-	left:50%;
-	padding:10vmin;
-	position:fixed;
-	text-align:center;
-	top:50%;
-	transform:translate(-50%, -50%);
-  }
-  
-  h1 {
-	font-family:monospace;
-  }
-  
-  @keyframes slide {
+	bottom: 0;
+	left: -50%;
+	opacity: 0.5; /* Set the opacity of the background */
+	position: fixed; /* Fix the background position in the viewport */
+	right: -50%;
+	top: 0;
+	z-index: -1; /* Place the background behind other elements */
+}
+
+/* Modify the background animation direction for .bg2 */
+.bg2 {
+	animation-direction: alternate-reverse;
+	animation-duration: 4s; /* Adjust the animation duration for .bg2 */
+}
+
+/* Adjust the animation duration for .bg3 */
+.bg3 {
+	animation-duration: 5s;
+}
+
+/* Styling for the content box */
+.content {
+	margin-top: 10vmin;
+	background-color: rgba(255, 255, 255, 0.8); /* Set a semi-transparent white background */
+	border-radius: 0.10em; /* Add a slight border radius to the content box */
+	box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.25); /* Apply a subtle box shadow */
+	box-sizing: content-box; /* Include padding and border in the box's total width */
+	left: 50%;
+	padding: 10vmin; /* Set padding using 10% of the viewport's minimum dimension */
+	position: absolute; /* Fix the content box position in the viewport */
+	text-align: center;
+	top: 50%;
+	transform: translate(-50%, -50%); /* Center the content box horizontally and vertically */
+}
+
+/* Styling for the h1 element */
+*{
+	font-family: monospace !important;/* Set the font-family to monospace for the h1 element */
+}
+
+/* Apply the custom font to the email input field */
+input[type="email"],
+input[type="text"]{
+	font-family: monospace;
+	/* Replace "Your Custom Font" with the name of the font you want to use */
+}
+
+/* Define the slide animation using keyframes */
+@keyframes slide {
 	0% {
-	  transform:translateX(-25%);
+		transform: translateX(-25%); /* Starting position of the animation */
 	}
 	100% {
-	  transform:translateX(25%);
+		transform: translateX(25%); /* Ending position of the animation */
+	}
+}
+
+/* Media Query for Small Screens (e.g., mobile devices) */
+@media screen and (max-width: 768px) {
+	.content {
+	  /* Modify the padding to be 5vmin on smaller screens */
+	  padding: 5vmin;
+	}
+  }
+  
+  /* Media Query for Medium and Large Screens */
+@media screen and (min-width: 768px) {
+	.content {
+	  /* Increase the padding to 15vmin on medium and large screens */
+	  padding: 15vmin;
 	}
   }

@@ -1,11 +1,29 @@
+/*
+  This code block checks if the current environment is not "production" and if so,
+  loads environment variables from a .env file into process.env using the dotenv package.
+  It is commonly used in development environments to avoid hardcoding sensitive information such as API keys etc.
+  In our case its for a Session Key
+*/
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 // ./app.js
 const express = require('express');
+const session = require('express-session');
+const passport = require('./auth');
 const expressLayouts = require('express-ejs-layouts');
 const app = express();
+const bodyParser = require('body-parser');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session({ secret: 'your-secret-key', resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Set up the layout file
 app.set('layout', 'layout');
 app.use(expressLayouts);
@@ -28,12 +46,26 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/', // Redirect to the homepage upon successful login
+  failureRedirect: '/login', // Redirect back to the login page upon failed login
+  failureFlash: true // Enable flash messages for incorrect credentials
+}));
+
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/login');
+});
+
 // Register route
 app.get('/register', (req, res) => {
   console.log('Confirm GET REQUEST for Register');
   res.render('register');
 });
 
+app.post('/register', async (req, res) => {
+  // ... (code to handle user registration and storing in the NeDB database)
+});
 
 // POST request for user registration
 app.post('/register', (req, res) => {
