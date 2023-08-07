@@ -48,8 +48,26 @@ app.use(expressLayouts);
 // Custom middleware to set the currentPage variable
 app.use((req, res, next) => {
   res.locals.currentPage = req.path;
+  res.locals.isAuthenticated = req.isAuthenticated();
   next();
 });
+
+//checkAuthenticated and checkNotAuthenticated are two functions used to check if a user is logged in or not
+function checkAuthenticated(req, res, next) {
+  //IF USER IS AUTHENTICATED(LOGGED IN) THEN PROCEED ELSE REDIRECT TO LOGIN PAGE
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  res.redirect('/login')
+}
+
+function checkNotAuthenticated(req, res, next) {
+  //IF USER IS NOT AUTHENTICATED(LOGGED IN) THEN REDIRECT TO HOME ELSE PROCEED
+  if (req.isAuthenticated()) {
+    return res.redirect('/')
+  }
+  next()
+}
 
 // Home route
 app.get('/', (req, res) => {
@@ -74,7 +92,7 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
   failureFlash: true
 }))
 
-app.delete("/logout", (req, res, next) => {
+app.delete("/logout", (req, res) => {
   req.logOut((err) => {
     if (err) {
       return next(err);
@@ -186,24 +204,6 @@ app.post('/contact', (req, res) => {
   res.send(responseMessage);
 })
 // Contact route ----------------------------------THIS IS THE LONG ASS LINE I WAS REFERRING TO----------------------------------
-
-//checkAuthenticated and checkNotAuthenticated are two functions used to check if a user is logged in or not
-function checkAuthenticated(req, res, next) {
-  //IF USER IS AUTHENTICATED(LOGGED IN) THEN PROCEED ELSE REDIRECT TO LOGIN PAGE
-  if (req.isAuthenticated()) {
-    return next()
-  }
-
-  res.redirect('/login')
-}
-
-function checkNotAuthenticated(req, res, next) {
-  //IF USER IS NOT AUTHENTICATED(LOGGED IN) THEN REDIRECT TO HOME ELSE PROCEED
-  if (req.isAuthenticated()) {
-    return res.redirect('/')
-  }
-  next()
-}
 
 //IF RUNNING LOCALHOST PORT WILL BE 3000 but if hosted it will be the env variable AUTO SET BY HEROKU
 const PORT = process.env.PORT || 3000;

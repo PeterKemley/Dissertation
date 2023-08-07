@@ -87,10 +87,7 @@
     // Get the value of the message textarea
     const messageElement = document.getElementById('name');
     const message = messageElement.value;
-    //TroubleShootingArea
-    if (checkPasswordMatch())
-    {
-      console.log('checkPasswordMatch() True');
+
     try {
       const response = await fetch('/register', {
         method: 'POST',
