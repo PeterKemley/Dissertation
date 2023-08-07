@@ -61,18 +61,36 @@
     document.getElementById('registerForm').reset();
   }
 
-  // Add an event listener to the form submission
-  document.getElementById('registerForm').addEventListener('submit', async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
+  // Function to check if password and confirm password match
+  function checkPasswordMatch() {
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
 
-    const formData = new FormData(event.target); // Get the form data
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return false;
+    }
+    return true;
+  }
 
+  // Add event listener to the form submission
+  document.getElementById("registerForm").addEventListener("submit", async (event) => {
+    const form = document.getElementById("registerForm");
+    const formData = new FormData(form);
+
+    event.preventDefault();
+    if (!checkPasswordMatch()) {
+      console.log('checkPasswordMatch() False')
+      return; // Exit the function if passwords don't match
+    }
     //TroubleShootingArea
     // Get the value of the message textarea
     const messageElement = document.getElementById('name');
     const message = messageElement.value;
     //TroubleShootingArea
-
+    if (checkPasswordMatch())
+    {
+      console.log('checkPasswordMatch() True');
     try {
       const response = await fetch('/register', {
         method: 'POST',
@@ -90,10 +108,9 @@
       console.error('Error:', error);
       showAlert('Oops! Something went wrong. Please try again.'); // Show a generic error alert
     }
+    }
   });
-</script>
 
-<script>
     // Function to toggle password visibility
     function togglePasswordVisibility() {
       const passwordInput = document.getElementById("password");
@@ -109,9 +126,7 @@
         togglePasswordIcon.classList.add("fa-eye");
       }
     }
-</script>
 
-<script>
   function toggleConfirmPasswordVisibility() {
       const confirmPasswordInput = document.getElementById("confirmPassword");
       const toggleConfirmPasswordIcon = document.getElementById("toggleConfirmPasswordIcon");
