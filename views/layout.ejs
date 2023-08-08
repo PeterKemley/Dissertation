@@ -25,6 +25,15 @@
         <li class="nav-item">
           <a class="nav-link <%= currentPage === '/' ? 'active' : '' %>" href="/">Home</a>
         </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Information
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item <%= currentPage === '/scanner' ? 'active' : '' %>" href="/scanner">Allergens</a>
+          <a class="dropdown-item <%= currentPage === '/ingredient' ? 'active' : '' %>" href="/ingredient">Diets</a>
+        </div>
+      </li>
         <% if (isAuthenticated) { %>
           <!-- Show these links only for authenticated users -->
           <!-- Add authenticated user-specific navigation links here -->

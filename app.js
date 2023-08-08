@@ -130,7 +130,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
     res.redirect('/register')
   }
   console.log(users);
-})
+});
 
   // const { password, confirmPassword } = req.body;
   // // Check if the password and confirm password match
