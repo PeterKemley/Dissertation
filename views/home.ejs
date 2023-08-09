@@ -1,7 +1,24 @@
-<!-- views/home.ejs -->
-<main>
-<div class="container">
-<h1>Welcome to our Basic Website</h1>
-<p>I love you beautiful!</p>
-</div> <!-- / container-->
-</main>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lifestyle Scanner</title>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to Lifestyle Scanner</h1>
+      <p>Your one-stop solution for allergen and diet information.</p>
+      <p><%- message %></p>
+      <% if (!isAuthenticated) { %>
+        <a href="/register" class="btn-primary">Get Started Now!</a>
+      <% } %>
+    </div>
+  </section>
+
+  <section class="about">
+    <p>
+      Welcome to Lifestyle Scanner, your go-to platform for informed dietary choices. Our innovative web application bridges the gap between technology and nutrition, empowering you to make educated decisions about the foods you consume. With seamless barcode integration, our app allows you to effortlessly scan barcodes and retrieve detailed ingredient information, catering to your modern, fast-paced lifestyle. Beyond just presenting ingredients, we provide in-depth analyses of their impact, including nutritional value, potential allergens, and sustainability considerations. Our user-centric design ensures that individuals from all backgrounds can easily navigate and personalize their profiles, enhancing the overall experience. As a commitment to education, Lifestyle Scanner empowers you with knowledge that transcends dietary labels, enabling you to embrace a healthier and more sustainable lifestyle.
+    </p>
+  </section>
+</body>
+</html>

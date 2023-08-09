@@ -75,16 +75,17 @@ function checkNotAuthenticated(req, res, next) {
   next()
 }
 
-// Home route
 app.get('/', (req, res) => {
   console.log('Confirm GET REQUEST for Homepage');
-  res.render('home');
+  
+  if (req.isAuthenticated()) {
+    // If the user is authenticated, render the welcome message
+    res.render('home', { message: `Hello <strong>${req.user.name}</strong>, Welcome back!` });
+  } else {
+    // If the user is not authenticated, render the "Get Started Now" message
+    res.render('home', { message: 'Hey we see you are not logged in to access our APIs section you must register so why not!' });
+  }
 });
-
-//IF userAuthenticated then render index and feed in Users name
-app.get('/', checkAuthenticated, (req, res) => {
-  res.render('home.ejs', { name: req.user.name })
-})
 
 // Login route
 app.get('/login', checkNotAuthenticated, (req, res) => {

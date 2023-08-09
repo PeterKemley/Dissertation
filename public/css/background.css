@@ -34,33 +34,6 @@ body {
 	animation-duration: 5s;
 }
 
-/* Styling for the content box */
-.content {
-	margin-top: 5vmin;
-	background-color: rgba(255, 255, 255, 0.8); /* Set a semi-transparent white background */
-	border-radius: 0.10em; /* Add a slight border radius to the content box */
-	box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.25); /* Apply a subtle box shadow */
-	box-sizing: content-box; /* Include padding and border in the box's total width */
-	left: 50%;
-	padding: 10vmin; /* Set padding using 10% of the viewport's minimum dimension */
-	position: absolute; /* Fix the content box position in the viewport */
-	text-align: center;
-	top: 50%;
-	transform: translate(-50%, -50%); /* Center the content box horizontally and vertically */
-}
-
-/* Styling for the h1 element */
-*{
-	font-family: monospace;/* Set the font-family to monospace for the h1 element */
-}
-
-/* Apply the custom font to the email input field */
-input[type="email"],
-input[type="text"]{
-	font-family: monospace;
-	/* Replace "Your Custom Font" with the name of the font you want to use */
-}
-
 /* Define the slide animation using keyframes */
 @keyframes slide {
 	0% {
@@ -71,18 +44,52 @@ input[type="text"]{
 	}
 }
 
+/* Styling for the h1 element */
+* {
+	font-family: monospace;
+	box-sizing: border-box;
+}
+
+/* Styling for the main content */
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-start;
+  align-items: center;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 0.10em;
+  box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.25);
+  box-sizing: content-box;
+  padding: 2rem;
+  max-width: 90%;
+  margin: 5vmin auto; /* Center vertically and horizontally using auto margins */
+  overflow: auto;
+
+
+}
+
+/* Apply the custom font to the email input field */
+input[type="email"],
+input[type="text"] {
+	font-family: monospace;
+}
+
 /* Media Query for Small Screens (e.g., mobile devices) */
 @media screen and (max-width: 768px) {
 	.content {
-	  /* Modify the padding to be 5vmin on smaller screens */
-	  padding: 5vmin;
+	  margin: 15vmin auto;
+	  max-width: 80%;
+	  position:auto;
 	}
-  }
-  
-  /* Media Query for Medium and Large Screens */
+}
+
+/* Media Query for Medium and Large Screens */
 @media screen and (min-width: 768px) {
 	.content {
-	  /* Increase the padding to 15vmin on medium and large screens */
-	  padding: 15vmin;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		position: absolute; /* Adjust position as needed */
 	}
-  }
+}
