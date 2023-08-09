@@ -65,9 +65,17 @@ body {
   max-width: 90%;
   margin: 5vmin auto; /* Center vertically and horizontally using auto margins */
   overflow: auto;
-
-
 }
+
+/* Increase the size of the footer logos */
+.footer-logo {
+	width: 100px; /* Adjust the width to your preference */
+	height: auto; /* Maintain the aspect ratio */
+  }
+
+  .form-control {
+	width: 100%;
+  }
 
 /* Apply the custom font to the email input field */
 input[type="email"],
