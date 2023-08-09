@@ -26,7 +26,13 @@ initializePassport(
 
 //As this application is a proof of concept the users will be stored locally.
 //In a real situation this would be a database such as MongoDB
-const users = [];
+const users = [{
+  id: '1691545327495',
+  name: '1',
+  email: 'e@e',
+  password: '$2b$10$B7jDFgnkHCC6ouahBVWX8.okyf8c6sUFA1Wo2RPre19/.ihKiHKgO'
+}
+];
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -92,18 +98,13 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
   failureFlash: true
 }))
 
-app.delete("/logout", (req, res) => {
-  req.logOut((err) => {
+app.post('/logout', (req, res) => {
+  req.logout((err) => {
     if (err) {
-      return next(err);
+      return next(err); // Handle the error if it occurs
     }
-    res.redirect("/login");
+    res.redirect('/login'); // Redirect after successful logout
   });
-});
-
-app.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/login');
 });
 
 // Register route

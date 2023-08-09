@@ -48,9 +48,9 @@
           <a class="dropdown-item <%= currentPage === '/ingredient' ? 'active' : '' %>" href="/ingredient">Ingredient Checker</a>
         </div>
       </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
-          </li>
+          <form action="/logout" method="post">
+            <button type="submit" class="nav-link" style="border: none; background: none; cursor: pointer;">Logout</button>
+          </form>
               <% } else { %>
           <!-- Show these links only for non-authenticated users -->
           <li class="nav-item">
