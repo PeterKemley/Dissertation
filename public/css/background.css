@@ -51,7 +51,7 @@ body {
 
 /* Styling for the h1 element */
 *{
-	font-family: monospace !important;/* Set the font-family to monospace for the h1 element */
+	font-family: monospace;/* Set the font-family to monospace for the h1 element */
 }
 
 /* Apply the custom font to the email input field */

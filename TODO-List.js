@@ -6,6 +6,8 @@ TODO:Add logo and icon
 TODO:Fix dropdowns not working when already on one dropdown link
 TODO:fix logout
 TODO:add allergens and diets pages
+TODO:Add homepage
+TODO:Make contact work.
 
 Following this message is WANTS
 
