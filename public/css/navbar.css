@@ -11,3 +11,6 @@
     color: #0F7173; /* Replace this with your desired text color */
 }
 
+.dropdown-menu, .dropdown-item {
+  background-color: #bb4444;
+}

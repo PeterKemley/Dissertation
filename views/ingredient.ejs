@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ingredients Check API</title>
+</head>
+<body>
+    <h1>Ingredients Check API</h1>
+    <form onsubmit="event.preventDefault(); searchIngredients();">
+        <label for="ingredientInput">Enter Ingredient Name:</label>
+        <input type="text" id="ingredientInput" required>
+        <button type="submit">Search</button>
+    </form>
+    <div id="result"></div>
+
+<script>
+        async function searchIngredients() {
+            const ingredient = document.getElementById('ingredientInput').value;
+            const apiUrl = `https://api.vegancheck.me/v0/ingredients/${ingredient}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+function displayResult(data) {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = '';
+
+        if (data.status === "200" && data.data) {
+            const isVegan = data.data.vegan === "true";
+            const flaggedIngredients = data.data.flagged;
+
+            let resultText = `<h2>Ingredient Information</h2>`;
+            resultText += `<p><strong>Vegan:</strong> ${isVegan ? 'Yes' : 'No'}</p>`;
+
+            if (flaggedIngredients.length > 0) {
+                resultText += `<p><strong>Flagged Ingredients:</strong></p>`;
+                resultText += `<ul>`;
+                flaggedIngredients.forEach(ingredient => {
+                    resultText += `<li>${ingredient}</li>`;
+                });
+                resultText += `</ul>`;
+            }
+
+            resultDiv.innerHTML = resultText;
+        } else {
+            resultDiv.innerText = 'Ingredient not found or an error occurred.';
+        }
+    }
+    </script>
+</body>
+</html>

@@ -1,10 +1,12 @@
 <!-- views/layout.ejs -->
 <!DOCTYPE html>
 <html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lifestyle Scanner</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
@@ -16,6 +18,7 @@
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
     -->
+    <!--The button below is for mobiles and for when the navbar becomes a dropdown menu -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -25,19 +28,45 @@
         <li class="nav-item">
           <a class="nav-link <%= currentPage === '/' ? 'active' : '' %>" href="/">Home</a>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="/#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Information
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item <%= currentPage === '/scanner' ? 'active' : '' %>" href="/scanner">Allergens</a>
+            <a class="dropdown-item <%= currentPage === '/ingredient' ? 'active' : '' %>" href="/ingredient">Diets</a>
+          </div>
+        </li>
+        <% if (isAuthenticated) { %>
+          <!-- Show these links only for authenticated users -->
+          <!-- Add authenticated user-specific navigation links here -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          APIS
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item <%= currentPage === '/scanner' ? 'active' : '' %>" href="/scanner">Scanner</a>
+          <a class="dropdown-item <%= currentPage === '/ingredient' ? 'active' : '' %>" href="/ingredient">Ingredient Checker</a>
+        </div>
+      </li>
+          <form action="/logout" method="post">
+            <button type="submit" class="nav-link" style="border: none; background: none; cursor: pointer;">Logout</button>
+          </form>
+              <% } else { %>
+          <!-- Show these links only for non-authenticated users -->
+          <li class="nav-item">
+            <a class="nav-link <%= currentPage === '/login' ? 'active' : '' %>" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <%= currentPage === '/register' ? 'active' : '' %>" href="/register">Register</a>
+          </li>
+        <% } %>
         <li class="nav-item">
           <a class="nav-link <%= currentPage === '/about' ? 'active' : '' %>" href="/about">About</a>
         </li>
         <li class="nav-item">
           <a class="nav-link <%= currentPage === '/contact' ? 'active' : '' %>" href="/contact">Contact</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link <%= currentPage === '/login' ? 'active' : '' %>" href="/login">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link <%= currentPage === '/register' ? 'active' : '' %>" href="/register">Register</a>
-        </li>
-        <!-- Add more navigation links here -->
       </ul>
     </div>
     </nav>
@@ -45,10 +74,12 @@
   <main class="content"> <!-- class="content" fed in from "/css/background.css" because of the <%- include('background') %> above -->
     <!-- Content from individual views will be inserted here -->
     <%- body %>
+    <%- include('footer') %>
   </main>
     <!-- Add Bootstrap JavaScript (jQuery is required for Bootstrap) -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.slim.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

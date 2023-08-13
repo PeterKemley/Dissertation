@@ -61,17 +61,32 @@
     document.getElementById('registerForm').reset();
   }
 
-  // Add an event listener to the form submission
-  document.getElementById('registerForm').addEventListener('submit', async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
+  // Function to check if password and confirm password match
+  function checkPasswordMatch() {
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
 
-    const formData = new FormData(event.target); // Get the form data
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return false;
+    }
+    return true;
+  }
 
+  // Add event listener to the form submission
+  document.getElementById("registerForm").addEventListener("submit", async (event) => {
+    const form = document.getElementById("registerForm");
+    const formData = new FormData(form);
+
+    event.preventDefault();
+    if (!checkPasswordMatch()) {
+      console.log('checkPasswordMatch() False')
+      return; // Exit the function if passwords don't match
+    }
     //TroubleShootingArea
     // Get the value of the message textarea
     const messageElement = document.getElementById('name');
     const message = messageElement.value;
-    //TroubleShootingArea
 
     try {
       const response = await fetch('/register', {
@@ -90,10 +105,9 @@
       console.error('Error:', error);
       showAlert('Oops! Something went wrong. Please try again.'); // Show a generic error alert
     }
+    }
   });
-</script>
 
-<script>
     // Function to toggle password visibility
     function togglePasswordVisibility() {
       const passwordInput = document.getElementById("password");
@@ -109,9 +123,7 @@
         togglePasswordIcon.classList.add("fa-eye");
       }
     }
-</script>
 
-<script>
   function toggleConfirmPasswordVisibility() {
       const confirmPasswordInput = document.getElementById("confirmPassword");
       const toggleConfirmPasswordIcon = document.getElementById("toggleConfirmPasswordIcon");
@@ -127,9 +139,5 @@
       }
     }
 </script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
