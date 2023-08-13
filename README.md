@@ -1,79 +1,89 @@
-# HappyHabits Wellbeing Web Application
+# Lifestyle Scanner Web Application
 
-Happy Habits recognizes that wellbeing is fundamental to human health and overall happiness. Developing a strong and well-adapted sense of wellbeing can help individuals overcome difficulties and achieve their goals. It also has important social benefits, improving educational attainment, economic productivity, social and family relationships, social cohesion, and overall quality of life.
-
-The Happy Habits web application is designed to help users improve their wellbeing by providing information on nutrition, fitness, and healthy lifestyle choices. Eating a healthy balanced diet, getting enough sleep and exercise, and creating healthy habits are all essential for individuals to improve their wellbeing. Happy Habits allows users to set their own personal goals and track their progress, empowering them to take control of their own wellbeing journey.
+Lifestyle Scanner is an innovative web application that bridges the worlds of technology and nutrition, empowering users to make informed decisions about their dietary choices. By seamlessly integrating with vegancheck.me APIs, the platform enables users to quickly scan barcodes and retrieve detailed ingredient information. It goes beyond just presenting ingredients, also analyzing their impact and providing clear details about nutritional value, potential allergens, and sustainability considerations. This application embodies a user-centric approach, offering intuitive navigation and personalized profiles.
 
 ## Project Overview
 
-This project involves the development of a web application that will enable users to find information about wellbeing and set themselves goals to help enhance their sense of wellbeing. Wellbeing is subjective and will be different for different people, so it is important that the application allows individuals to set their own goals. It is also important that users know that the application will secure their data and ensure their privacy.
+Lifestyle Scanner is a comprehensive web application that aims to empower users with knowledge about the foods they consume. It provides features for barcode integration, ingredient analysis, user registration, login, and goal tracking related to dietary choices.
 
 ### Features
 
-The application should allow the users to do the following:
+The application includes the following features:
 
-- Anyone should be able to browse to the site and view an About Us page with information about the application.
+- **Home Page**: Provides an overview of the application's purpose and benefits.
 
-- Individuals should be able to register for the application.
+- **About Us Page**: Offers information about the application's development journey and goals.
 
-- Registered users should be able to login and:
+- **Contact Us Page**: Allows users to submit inquiries or messages through a contact form.
 
-  - view information about nutrition, fitness, and a healthy lifestyle.
+- **Registration and Login**: Users can register for an account and log in using their credentials.
 
-  - define a series of personal goals in each category (nutrition, fitness, healthy lifestyle).
+- **Barcode Integration**: Users can scan barcodes to retrieve detailed ingredient information using vegancheck.me APIs.
 
-  - add, remove, and modify their own personal goals for several weeks ahead.
+- **Ingredient Analysis**: Detailed information about nutritional value, allergens, and sustainability is provided for scanned ingredients.
 
-  - record the achievement of their own personal goals when they occur (e.g. goals can be ticked off or actual times or number of repetitions can be recorded).
+- **User Goals**: Registered users can define and track their dietary goals.
 
-  - review a history of their own personal achievements.
-
-### Additional Features
-
-You may choose to add additional, relevant features which are not specified above. If your application extends the specification you should highlight and justify the additional features in your final submission.
+- **API Integration**: Integration with vegancheck.me APIs for barcode scanning and ingredient analysis.
 
 ## Development Tools
 
-The application should be developed using Node.js and Express with NeDB used to store information. It is expected that Mustache templates will be used, however another approach to developing the user interface would be acceptable if appropriate justification is provided.
+The application is developed using the following tools and technologies:
+
+- **Node.js and Express**: Used for server-side development and routing.
+
+- **Express Sessions and Passport**: Handling user authentication and session management.
+
+- **bcrypt**: For securely hashing and comparing passwords.
+
+- **Mustache**: Templating engine for generating dynamic HTML content.
+
+- **Bootstrap**: CSS framework for responsive and attractive UI design.
 
 ## Getting Started
 
 ### Prerequisites
 
-Before you begin, ensure you have met the following requirements:
+Before you begin, ensure you have the following:
 
-- You have installed the latest version of Node.js and npm.
+- Node.js and npm installed.
 
-- You have installed NeDB.
+- Basic understanding of Node.js, Express, and web development concepts.
 
-- You have installed Express.
+### Installation and Usage
 
-- You have installed Mustache.
+To set up and run the application:
 
-### Installation
+1. Clone the repository to your local machine.
 
-To install this application, follow these steps:
+2. Navigate to the project directory in your terminal.
 
-1\. Clone the repository to your local machine.
+3. Install dependencies using the command `npm install`.
 
-2\. Navigate to the project root directory.
+4. Start the application using `npm start`.
 
-3\. Install the required dependencies using `npm install`.
-
-### Usage
-
-To run the application, follow these steps:
-
-1\. Navigate to the project root directory.
-
-2\. Start the application using `npm start`.
-
-3\. Open your web browser and go to `http://localhost:3000` to access the application.
+5. Open your web browser and go to `http://localhost:3000` to access the application.
 
 ## About Us
 
-The About Us page should contain information about the application, including the purpose, goals, and team members.
+The **About Us** page provides insights into the development journey of the application, its purpose, and the fusion of technology and nutrition.
+
+## Contact Us
+
+The **Contact Us** page features a contact form through which users can submit inquiries or messages to the application administrators.
 
 ## License
 
-This project is licensed under the MIT License - see the `LICENSE` file for details.
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
+
+## Screenshots
+
+- Insert screenshots or GIFs showcasing different features and pages of the application here.
+
+## Future Enhancements
+
+- Outline any planned enhancements or additional features you intend to add to the application.
+
+## Acknowledgments
+
+- Mention any external libraries, tools, or resources you used and found helpful during the development process.
