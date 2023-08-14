@@ -16,7 +16,9 @@ const expressLayouts = require('express-ejs-layouts');
 const app = express();
 const flash = require('express-flash')
 const methodOverride = require('method-override')
-
+const fs = require('fs');
+const markdownIt = require('markdown-it');
+const md = new markdownIt();
 const initializePassport = require('./passport-config')
 initializePassport(
   passport,
@@ -206,6 +208,39 @@ app.post('/contact', (req, res) => {
   res.send(responseMessage);
 })
 // Contact route ----------------------------------THIS IS THE LONG ASS LINE I WAS REFERRING TO----------------------------------
+
+//INFORMATION NAVBAR DROPDOWN GET REQUESTS
+app.get('/diet', (req, res) => {
+  console.log('Confirm GET REQUEST for Diet Information');
+  res.render('diet');
+});
+
+app.get('/allergen', (req, res) => {
+  console.log('Confirm GET REQUEST for Allergen Information');
+  res.render('allergen');
+});
+
+app.get('/api-info', (req, res) => {
+  console.log('Confirm GET REQUEST for API Information');
+  res.render('api-info');
+});
+
+app.get('/readme', (req, res) => {
+  console.log('Confirm GET REQUEST for README.MD FILE');
+  // Read the content of the README.md file
+  fs.readFile('./README.md', 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading README.md:', err);
+      return res.status(500).send('Error reading README.md');
+    }
+
+    // Convert Markdown to HTML using the markdown-it module
+    const readmeHTML = md.render(data);
+
+    // Render the readme.ejs view with the converted HTML content
+    res.render('readme', { readmeHTML });
+  });
+});
 
 //IF RUNNING LOCALHOST PORT WILL BE 3000 but if hosted it will be the env variable AUTO SET BY HEROKU
 const PORT = process.env.PORT || 3000;

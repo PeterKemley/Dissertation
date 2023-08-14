@@ -33,8 +33,10 @@
             Information
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item <%= currentPage === '/scanner' ? 'active' : '' %>" href="/scanner">Allergens</a>
-            <a class="dropdown-item <%= currentPage === '/ingredient' ? 'active' : '' %>" href="/ingredient">Diets</a>
+            <a class="dropdown-item <%= currentPage === '/allergen' ? 'active' : '' %>" href="/allergen">Allergens</a>
+            <a class="dropdown-item <%= currentPage === '/diet' ? 'active' : '' %>" href="/diet">Diets</a>
+            <a class="dropdown-item <%= currentPage === '/api-info' ? 'active' : '' %>" href="/api-info">API Information</a>
+            <a class="dropdown-item <%= currentPage === '/readme' ? 'active' : '' %>" href="/readme">README FILE</a>
           </div>
         </li>
         <% if (isAuthenticated) { %>
