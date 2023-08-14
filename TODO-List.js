@@ -3,7 +3,6 @@
 Following this message is a TODO list of things that need done for the webapp
 
 TODO:Add logo and icon
-TODO:add allergens and diets pages
 TODO:Add camera barcode scanner
 TODO:FIX API VIEWS
 TODO:Make contact work.
