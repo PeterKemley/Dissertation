@@ -98,7 +98,7 @@ input[type="text"] {
 /* Media Query for Medium and Large Screens */
 @media screen and (min-width: 768px) {
 	.movedown {
-		margin-top: 120vh !important;
+		margin-top: 300vh !important;
 	}
 	
 	.content {

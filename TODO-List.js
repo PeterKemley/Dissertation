@@ -6,7 +6,6 @@ TODO:Add logo and icon
 TODO:add allergens and diets pages
 TODO:Add camera barcode scanner
 TODO:FIX API VIEWS
-TODO:Make ACTUAL README
 TODO:Make API Documentation page
 TODO:Make contact work.
 TODO:FIX FORM WIDTHS
