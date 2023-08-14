@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const express = require('express');
-const session = require('express-session');
+const session = require('express-session'); //Cookie Session fixes memory leak issue but breaks login
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const expressLayouts = require('express-ejs-layouts');
@@ -168,8 +168,8 @@ app.get('/ingredient', checkAuthenticated , (req, res) => {
   res.render('ingredient', { title: 'Ingredient API' });
 });
 
-// Scanner route , checkAuthenticated
-app.get('/scanner', (req, res) => {
+// Scanner route
+app.get('/scanner', checkAuthenticated, (req, res) => {
   console.log('Confirm GET REQUEST for Scanner API');
   res.render('scanner', { title: 'Scanner API' });
 });
