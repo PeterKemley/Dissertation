@@ -19,6 +19,15 @@ const methodOverride = require('method-override')
 const fs = require('fs');
 const markdownIt = require('markdown-it');
 const md = new markdownIt();
+const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
+
 const initializePassport = require('./passport-config')
 initializePassport(
   passport,
@@ -189,11 +198,7 @@ app.get('/contact', (req, res) => {
 });
 
 // Handle POST request for the contact form
-/* The following code handles the POST request which is the action that occurs upon sending
-an email through the contact form as this is a proof of concept the email does not actually send
-but a response is sent to the server to say thanks using the name variable from the form 
-FIXME: Fix submission message keep getting the undefined */
-app.post('/contact', (req, res, next) => {
+app.post('/contact', async (req, res) => {
   console.log('Confirm POST REQUEST for Contact');
   const { name, email, message } = req.body;
   //DEBUG DATA
@@ -201,12 +206,24 @@ app.post('/contact', (req, res, next) => {
   console.log('Name:', name);
   console.log('Email:', email);
   console.log('Message:', message);
+
+  try {
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER, // Sender's email
+      to: process.env.EMAIL_RECIPIENT, // Recipient's email
+      subject: `Contact Form Submission from ${name}`,
+      text: `Message from ${email}:\n\n${message}`,
+      replyTo: email,
+    });
   
-  req.flash('thankyoumessage', `Thank you for contacting us, ${name}! We'll get back to you soon.`);
-  res.redirect('/contact');
-  
-})
-// Contact route ----------------------------------THIS IS THE LONG ASS LINE I WAS REFERRING TO----------------------------------
+    // Store the thank you message in session and redirect
+    req.flash('thankyoumessage', `Thank you for contacting us, ${name}! We'll get back to you soon.`);
+    res.redirect('/contact');
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).send('An error occurred while sending the email.');
+  }
+});
 
 //INFORMATION NAVBAR DROPDOWN GET REQUESTS
 app.get('/diet', (req, res) => {
