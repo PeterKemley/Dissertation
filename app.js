@@ -162,8 +162,14 @@ app.get('/about', (req, res) => {
   res.render('about', { title: 'About Us' });
 });
 
-// Scanner route
-app.get('/scanner', checkAuthenticated, (req, res) => {
+// Route for Ingredients view 
+app.get('/ingredient', checkAuthenticated , (req, res) => {
+  console.log('Confirm GET REQUEST for Ingredients API');
+  res.render('ingredient', { title: 'Ingredient API' });
+});
+
+// Scanner route , checkAuthenticated
+app.get('/scanner', (req, res) => {
   console.log('Confirm GET REQUEST for Scanner API');
   res.render('scanner', { title: 'Scanner API' });
 });
@@ -185,13 +191,6 @@ app.post('/api/scanner', async (req, res) => {
   }
 });
 
-// Route for Ingredients view
-app.get('/ingredient', checkAuthenticated, (req, res) => {
-  console.log('Confirm GET REQUEST for Ingredients API');
-  res.render('ingredient', { title: 'Ingredient API' });
-});
-
-// Contact route ----------------------------------ANYTHING BETWEEN THIS AND THE NEXT LONG ASS LINE IS TODO WITH CONTACT PAGE----------------------------------
 app.get('/contact', (req, res) => {
   console.log('Confirm GET REQUEST for Contact');
   res.render('contact' , { title: 'Contact Us' });
