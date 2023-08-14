@@ -220,6 +220,11 @@ app.get('/allergen', (req, res) => {
   res.render('allergen', { title: 'Allergen Information' });
 });
 
+app.get('/allergen-risks', (req, res) => {
+  console.log('Confirm GET REQUEST for Allergen Information');
+  res.render('allergen-risks', { title: 'Allergen Risks' });
+});
+
 app.get('/api-info', (req, res) => {
   console.log('Confirm GET REQUEST for API Information');
   res.render('api-info', { title: 'API Information' });
