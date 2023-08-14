@@ -215,7 +215,14 @@ app.post('/contact', async (req, res) => {
       text: `Message from ${email}:\n\n${message}`,
       replyTo: email,
     });
-  
+    console.log("Email Sent to Web App Inbox!");
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER, // Sender's email
+      to: email, // Recipient's email
+      subject: `Contact Form Submission from ${name}`,
+      text: `Thank you for your message ${name}, We look forward to reading your email!`,
+    });
+    console.log("Email Sent to " + email + "Inbox!");
     // Store the thank you message in session and redirect
     req.flash('thankyoumessage', `Thank you for contacting us, ${name}! We'll get back to you soon.`);
     res.redirect('/contact');
