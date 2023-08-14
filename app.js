@@ -30,7 +30,7 @@ initializePassport(
 //In a real situation this would be a database such as MongoDB
 const users = [{
   id: '1691545327495',
-  name: '1',
+  name: 'Peter Kemley',
   email: 'e@e',
   password: '$2b$10$B7jDFgnkHCC6ouahBVWX8.okyf8c6sUFA1Wo2RPre19/.ihKiHKgO'
 }
@@ -66,6 +66,9 @@ function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next()
   }
+  console.log('User Not Logged In')
+  // Set a flash message to indicate the error
+  req.flash('error', 'You must be logged in to access this page.');
   res.redirect('/login')
 }
 
@@ -119,32 +122,30 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 // POST request for user registration
 app.post('/register', checkNotAuthenticated, async (req, res) => {
   console.log('Confirm POST REQUEST for Register');
+  
+  const { name, email, password, confirmPassword } = req.body;
+  console.log(req.body);
+    if (password !== confirmPassword) {
+      console.log('Passwords do not match');
+      return res.render('register', { title: 'Register', Error: 'Passwords do not match. Please try again.' });
+    }
+
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    const hashedPassword = await bcrypt.hash(password, 10);
     users.push({
       id: Date.now().toString(),
-      name: req.body.name,
-      email: req.body.email,
+      name,
+      email,
       password: hashedPassword
-    })
-    res.redirect('/login')
+    });
+    res.redirect('/login');
     console.log(`User Registered Successfully`);
   } catch {
     console.log('User Registered Unsuccessfully please try again');
-    res.redirect('/register')
+    res.redirect('/register');
   }
   console.log(users);
 });
-
-  // const { password, confirmPassword } = req.body;
-  // // Check if the password and confirm password match
-  // if (password !== confirmPassword) {
-  //   return res.status(400).send("Passwords do not match");
-  // }
-  // // Here, you can proceed with user registration logic (e.g., store user details in the database)
-  // // For now, let's just send a response back to the client
-  // const responseMessage = `User ${name} with email ${email} has been registered successfully!`;
-  // res.send(responseMessage);
 
 // About route
 app.get('/about', (req, res) => {
@@ -153,7 +154,7 @@ app.get('/about', (req, res) => {
 });
 
 // Scanner route
-app.get('/scanner', (req, res) => {
+app.get('/scanner', checkAuthenticated, (req, res) => {
   console.log('Confirm GET REQUEST for Scanner API');
   res.render('scanner', { title: 'Scanner API' });
 });
@@ -176,7 +177,7 @@ app.post('/api/scanner', async (req, res) => {
 });
 
 // Route for Ingredients view
-app.get('/ingredient', (req, res) => {
+app.get('/ingredient', checkAuthenticated, (req, res) => {
   console.log('Confirm GET REQUEST for Ingredients API');
   res.render('ingredient', { title: 'Ingredient API' });
 });
@@ -192,7 +193,7 @@ app.get('/contact', (req, res) => {
 an email through the contact form as this is a proof of concept the email does not actually send
 but a response is sent to the server to say thanks using the name variable from the form 
 FIXME: Fix submission message keep getting the undefined */
-app.post('/contact', (req, res) => {
+app.post('/contact', (req, res, next) => {
   console.log('Confirm POST REQUEST for Contact');
   const { name, email, message } = req.body;
   //DEBUG DATA
@@ -200,12 +201,10 @@ app.post('/contact', (req, res) => {
   console.log('Name:', name);
   console.log('Email:', email);
   console.log('Message:', message);
-
-  // Here, you can process the form data as needed (e.g., send an email, store it in a database, etc.)
-
-  // For now, let's just send a response back to the client
-  const responseMessage = `Thank you for contacting us, ${name}! We'll get back to you soon.`;
-  res.send(responseMessage);
+  
+  req.flash('thankyoumessage', `Thank you for contacting us, ${name}! We'll get back to you soon.`);
+  res.redirect('/contact');
+  
 })
 // Contact route ----------------------------------THIS IS THE LONG ASS LINE I WAS REFERRING TO----------------------------------
 

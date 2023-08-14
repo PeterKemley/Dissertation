@@ -10,6 +10,11 @@
     <div class="row justify-content-center">
       <div>
         <div class="registration-form">
+        <% if (Error) { %> 
+        <div class="alert alert-danger" role="alert">
+          <%= Error %>
+        </div>
+        <% } %>
           <h2>Register</h2>
           <form id="registerForm" action="/register" method="POST">
             <div class="form-group">
@@ -50,63 +55,6 @@
           </form>
 
 <script>
-  // Function to show an alert with the response message
-  function showAlert(message) {
-    alert(message);
-  }
-
-  // Function to clear the form after submission
-  function clearForm() {
-    document.getElementById('registerForm').reset();
-  }
-
-  // Function to check if password and confirm password match
-  function checkPasswordMatch() {
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return false;
-    }
-    return true;
-  }
-
-  // Add event listener to the form submission
-  document.getElementById("registerForm").addEventListener("submit", async (event) => {
-    const form = document.getElementById("registerForm");
-    const formData = new FormData(form);
-
-    event.preventDefault();
-    if (!checkPasswordMatch()) {
-      console.log('checkPasswordMatch() False')
-      return; // Exit the function if passwords don't match
-    }
-    //TroubleShootingArea
-    // Get the value of the message textarea
-    const messageElement = document.getElementById('name');
-    const message = messageElement.value;
-
-    try {
-      const response = await fetch('/register', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        const data = await response.text(); // Get the response message from the server
-        showAlert(data); // Display the response message as an alert
-        clearForm(); // Clear the form fields
-      } else {
-        showAlert('Oops! Something went wrong. Please try again.'); // Show a generic error alert
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      showAlert('Oops! Something went wrong. Please try again.'); // Show a generic error alert
-    }
-    });
-
-    // Function to toggle password visibility
     function togglePasswordVisibility() {
       const passwordInput = document.getElementById("password");
       const togglePasswordIcon = document.getElementById("togglePasswordIcon");
