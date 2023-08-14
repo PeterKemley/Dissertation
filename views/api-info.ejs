@@ -1,11 +1,55 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>API Information</title>
-</head>
 <body>
-    <p>
-    TEST
-    </p>
+  <h1>Lifestyle Scanner API Information</h1>
+
+  <h2>VeganCheck Ingredients API</h2>
+  <p>
+    The VeganCheck Ingredients API allows you to retrieve information about ingredients present in various products.
+    You can find more details about this API on the official website: <a href="https://frontendnet.work/vegancheck-ingredients-api" target="_blank">VeganCheck Ingredients API</a>.
+  </p>
+
+  <h2>VeganCheck API</h2>
+  <p>
+    The VeganCheck API provides functionality to scan products and identify their compatibility with vegan and other dietary preferences.
+    For more information, visit the official website: <a href="https://frontendnet.work/vegancheck-api" target="_blank">VeganCheck API</a>.
+  </p>
+
+  <h2>Integration and Usage</h2>
+  <p>
+    To integrate your Web Application with these APIs, you'll need to use appropriate endpoints and make HTTP requests based on the documentation provided by the APIs.
+    Make sure to follow the guidelines outlined in the respective API documentation for successful integration.
+  </p>
+
+  <h2>Sample Code</h2>
+  <p>
+    Here's a sample code snippet demonstrating how you could use the APIs in your web application:
+  </p>
+
+  <pre style="text-align: left;"><code>
+// Sample JavaScript code using fetch for API integration
+fetch('API_ENDPOINT_URL', {
+  method: 'GET', // or 'POST' based on the API's requirements
+  headers: {
+    'Content-Type': 'application/json',
+    // Additional headers as needed
+  }
+})
+.then(response => response.json())
+.then(data => {
+  // Process the data from the API response
+  console.log(data);
+})
+.catch(error => {
+  // Handle any errors that occur during the API request
+  console.error('Error:', error);
+});
+  </code></pre>
+
+  <h2>Remember</h2>
+  <p>
+    Ensure that you're following the terms of use and guidelines provided by the API providers when using their services.
+    Keep your API keys and authentication details secure to prevent unauthorized access to your web application.
+  </p>
 </body>
 </html>

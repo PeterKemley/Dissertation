@@ -82,17 +82,17 @@ app.get('/', (req, res) => {
   
   if (req.isAuthenticated()) {
     // If the user is authenticated, render the welcome message
-    res.render('home', { message: `Hello <strong>${req.user.name}</strong>, Welcome back!` });
+    res.render('home', { title: 'Home', message: `Hello <strong>${req.user.name}</strong>, Welcome back!` });
   } else {
     // If the user is not authenticated, render the "Get Started Now" message
-    res.render('home', { message: 'Hey we see you are not logged in to access our APIs section you must register so why not!' });
+    res.render('home', { title: 'Home', message: 'Hey we see you are not logged in to access our APIs section you must register so why not!' });
   }
 });
 
 // Login route
 app.get('/login', checkNotAuthenticated, (req, res) => {
   console.log('Confirm GET REQUEST for Login');
-  res.render('login.ejs')
+  res.render('login.ejs', { title: 'Login' })
 })
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
@@ -113,7 +113,7 @@ app.post('/logout', (req, res) => {
 // Register route
 app.get('/register', checkNotAuthenticated, (req, res) => {
   console.log('Confirm GET REQUEST for Register');
-  res.render('register');
+  res.render('register', { title: 'Register' });
 });
 
 // POST request for user registration
@@ -149,13 +149,13 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
 // About route
 app.get('/about', (req, res) => {
   console.log('Confirm GET REQUEST for About');
-  res.render('about');
+  res.render('about', { title: 'About Us' });
 });
 
 // Scanner route
 app.get('/scanner', (req, res) => {
   console.log('Confirm GET REQUEST for Scanner API');
-  res.render('scanner');
+  res.render('scanner', { title: 'Scanner API' });
 });
 
 // Scanner POST
@@ -178,13 +178,13 @@ app.post('/api/scanner', async (req, res) => {
 // Route for Ingredients view
 app.get('/ingredient', (req, res) => {
   console.log('Confirm GET REQUEST for Ingredients API');
-  res.render('ingredient');
+  res.render('ingredient', { title: 'Ingredient API' });
 });
 
 // Contact route ----------------------------------ANYTHING BETWEEN THIS AND THE NEXT LONG ASS LINE IS TODO WITH CONTACT PAGE----------------------------------
 app.get('/contact', (req, res) => {
   console.log('Confirm GET REQUEST for Contact');
-  res.render('contact');
+  res.render('contact' , { title: 'Contact Us' });
 });
 
 // Handle POST request for the contact form
@@ -212,17 +212,17 @@ app.post('/contact', (req, res) => {
 //INFORMATION NAVBAR DROPDOWN GET REQUESTS
 app.get('/diet', (req, res) => {
   console.log('Confirm GET REQUEST for Diet Information');
-  res.render('diet');
+  res.render('diet', { title: 'Diet Information' });
 });
 
 app.get('/allergen', (req, res) => {
   console.log('Confirm GET REQUEST for Allergen Information');
-  res.render('allergen');
+  res.render('allergen', { title: 'Allergen Information' });
 });
 
 app.get('/api-info', (req, res) => {
   console.log('Confirm GET REQUEST for API Information');
-  res.render('api-info');
+  res.render('api-info', { title: 'API Information' });
 });
 
 app.get('/readme', (req, res) => {
@@ -238,7 +238,7 @@ app.get('/readme', (req, res) => {
     const readmeHTML = md.render(data);
 
     // Render the readme.ejs view with the converted HTML content
-    res.render('readme', { readmeHTML });
+    res.render('readme', { title: 'README File', readmeHTML });
   });
 });
 
