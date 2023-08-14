@@ -36,8 +36,6 @@ The application is developed using the following tools and technologies:
 
 - **bcrypt**: For securely hashing and comparing passwords.
 
-- **Mustache**: Templating engine for generating dynamic HTML content.
-
 - **Bootstrap**: CSS framework for responsive and attractive UI design.
 
 ## Getting Started

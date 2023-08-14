@@ -83,6 +83,9 @@ input[type="text"] {
 	font-family: monospace;
 }
 
+
+  
+
 /* Media Query for Small Screens (e.g., mobile devices) */
 @media screen and (max-width: 768px) {
 	.content {
@@ -94,6 +97,10 @@ input[type="text"] {
 
 /* Media Query for Medium and Large Screens */
 @media screen and (min-width: 768px) {
+	.movedown {
+		margin-top: 120vh !important;
+	}
+	
 	.content {
 		left: 50%;
 		top: 50%;
