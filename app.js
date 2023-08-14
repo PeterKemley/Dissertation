@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const express = require('express');
-const session = require('express-session');
+const session = require('express-session'); //Cookie Session fixes memory leak issue but breaks login
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const expressLayouts = require('express-ejs-layouts');
@@ -162,6 +162,12 @@ app.get('/about', (req, res) => {
   res.render('about', { title: 'About Us' });
 });
 
+// Route for Ingredients view 
+app.get('/ingredient', checkAuthenticated , (req, res) => {
+  console.log('Confirm GET REQUEST for Ingredients API');
+  res.render('ingredient', { title: 'Ingredient API' });
+});
+
 // Scanner route
 app.get('/scanner', checkAuthenticated, (req, res) => {
   console.log('Confirm GET REQUEST for Scanner API');
@@ -185,13 +191,6 @@ app.post('/api/scanner', async (req, res) => {
   }
 });
 
-// Route for Ingredients view
-app.get('/ingredient', checkAuthenticated, (req, res) => {
-  console.log('Confirm GET REQUEST for Ingredients API');
-  res.render('ingredient', { title: 'Ingredient API' });
-});
-
-// Contact route ----------------------------------ANYTHING BETWEEN THIS AND THE NEXT LONG ASS LINE IS TODO WITH CONTACT PAGE----------------------------------
 app.get('/contact', (req, res) => {
   console.log('Confirm GET REQUEST for Contact');
   res.render('contact' , { title: 'Contact Us' });

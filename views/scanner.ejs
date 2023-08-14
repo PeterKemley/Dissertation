@@ -1,54 +1,129 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
 <body>
     <h1>VeganCheck API Integration</h1>
     <form onsubmit="event.preventDefault(); scanBarcode();">
     <label for="barcodeInput">Enter Product Name or Barcode:</label>
-    <input type="text" id="barcodeInput" required>
-    <button type="submit">Search</button>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" onclick="toggleCamera()"><i class="fas fa-camera" style="color: #075ef2;"></i></button>
+        </div>
+        <input type="text" id="barcodeInput" required>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+    </div>
     </form>
     <div id="result"></div>
+    <span class="source">Data source: <a href="https://www.veganpeace.com/ingredients/ingredients.htm">VeganPeace</a> , <a href="https://www.peta.org/living/food/animal-ingredients-list/">PETA</a> &amp; <a href="https://www.veganwolf.com/animal_ingredients.htm">The VEGAN WOLF</a><sup data-target="license" data-toggle="modal" class="help-icon">?</sup><br><span>These results may be incorrect due to translation errors or missing information. The results are translated with <a href="https://deepl.com">DeepL</a>.</span></span>
+    <div id="cameraContainer" style="display: none;">
+        <video id="cameraFeed" autoplay></video>
+    </div>
 
     <script>
+        let codeReader;
+        let cameraOpen = false;
+
+        async function initializeScanner() {
+            // Make sure the ZXing library is loaded
+            if (typeof ZXing !== 'undefined') {
+                const cameraFeed = document.getElementById('cameraFeed');
+                codeReader = new ZXing.BrowserBarcodeReader();
+                const videoInputDevices = await codeReader.getVideoInputDevices();
+                if (videoInputDevices.length > 0) {
+                    codeReader
+                        .decodeOnceFromVideoDevice(undefined, cameraFeed)
+                        .then(result => {
+                            console.log('Scanned Barcode:', result.text);
+                            searchBarcode(result.text); // Corrected function call
+                        })
+                        .catch(err => {
+                            console.error('Error scanning barcode:', err);
+                        });
+                } else {
+                    console.error('No video input devices found.');
+                }
+            } else {
+                console.error('ZXing library not loaded.');
+            }
+        }
+
+        function toggleCamera() {
+            const cameraContainer = document.getElementById('cameraContainer');
+            if (!cameraOpen) {
+                initializeScanner();
+                cameraContainer.style.display = 'block';
+            } else {
+                codeReader.stopContinuousDecode(); // Stop continuous scanning
+                cameraContainer.style.display = 'none';
+            }
+            cameraOpen = !cameraOpen; // Toggle camera state
+        }
+
+        function openCamera() {
+            initializeScanner();
+        }
+
         async function scanBarcode() {
             const barcode = document.getElementById('barcodeInput').value;
             const apiUrl = `https://api.vegancheck.me/v0/product/${barcode}`;
-        if (!barcodeInput) {
-            console.error('Barcode element not found.');
-            return;
-        }
+            
             try {
                 let response = await fetch(apiUrl, { method: "POST" });
                 let data = await response.json();
+                toggleCamera();
                 displayResult(data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         }
-        
-    function displayResult(data) {
-        const resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = '';
 
-        if (data.status === 200 && data.product) {
-            const productName = data.product.productname;
-            const isVegan = data.product.vegan === "true";
+        function displayResult(data) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
 
-            let resultText = `<h2>${productName}</h2>`;
-            resultText += '<ul>';
+            if (data.status === 200 && data.product) {
+                const productName = data.product.productname;
+                const isVegan = data.product.vegan === "true";
+                const isVeggie = data.product.vegeterian;
+                const animaltest = data.product.animaltestfree;
+                const nutriscore = data.product.nutriscore;
+                const grade = data.product.grade;
 
-            // Loop through the product object and display each category and its value
-            for (const category in data.product) {
-                const value = data.product[category];
-                resultText += `<li><strong>${category}:</strong> ${value}</li>`;
+                let resultText = `<h2>${productName}</h2>`;
+                resultText += '<div>';
+
+                resultText += `<div><strong>Vegan:</strong> ${isVegan ? '<i class="fas fa-check" style="color: green;"></i>' : '<i class="fas fa-times" style="color: red;"></i>'}</div>`;
+                resultText += `<div><strong>Vegetarian:</strong> ${isVeggie ? '<i class="fas fa-check" style="color: green;"></i>' : '<i class="fas fa-times" style="color: red;"></i>'}</div>`;
+                resultText += `<div><strong>Animal Test Free:</strong> ${animaltest ? '<i class="fas fa-check" style="color: green;"></i>' : '<i class="fas fa-times" style="color: red;"></i>'}</div>`;
+                resultText += `<div><strong>Nutriscore:</strong> ${nutriscore}</div>`;
+                resultText += `<div><strong>Grade:</strong> ${grade}</div>`;
+
+                resultText += '</div>';
+                resultDiv.innerHTML = resultText;
+            } else {
+                resultDiv.innerText = 'Product not found or an error occurred.';
             }
-
-            resultText += '</ul>';
-            resultDiv.innerHTML = resultText;
-        } else {
-            resultDiv.innerText = 'Product not found or an error occurred.';
         }
-    }
+
+        async function searchBarcode(barcode) { // Added the missing function
+            const apiUrl = `https://api.vegancheck.me/v0/product/${barcode}`;
+        
+            try {
+                const response = await fetch(apiUrl, { method: "POST" });
+                const data = await response.json();
+                displayResult(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Call initializeScanner to start scanning from the webcam
+        initializeScanner();
     </script>
 </body>
 </html>
