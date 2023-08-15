@@ -19,10 +19,10 @@
     </div>
     </form>
     <div id="result"></div>
-    <span class="source">Data source: <a href="https://www.veganpeace.com/ingredients/ingredients.htm">VeganPeace</a> , <a href="https://www.peta.org/living/food/animal-ingredients-list/">PETA</a> &amp; <a href="https://www.veganwolf.com/animal_ingredients.htm">The VEGAN WOLF</a><sup data-target="license" data-toggle="modal" class="help-icon">?</sup><br><span>These results may be incorrect due to translation errors or missing information. The results are translated with <a href="https://deepl.com">DeepL</a>.</span></span>
     <div id="cameraContainer" style="display: none;">
         <video id="cameraFeed" autoplay></video>
     </div>
+    <span class="source">Data source: <a href="https://www.veganpeace.com/ingredients/ingredients.htm">VeganPeace</a> , <a href="https://www.peta.org/living/food/animal-ingredients-list/">PETA</a> &amp; <a href="https://www.veganwolf.com/animal_ingredients.htm">The VEGAN WOLF</a><sup data-target="license" data-toggle="modal" class="help-icon">?</sup><br><span>These results may be incorrect due to translation errors or missing information. The results are translated with <a href="https://deepl.com">DeepL</a>.</span></span>
 
     <script>
         let codeReader;
@@ -40,6 +40,10 @@
                         .then(result => {
                             console.log('Scanned Barcode:', result.text);
                             searchBarcode(result.text); // Corrected function call
+                            codeReader.stopContinuousDecode(); // Stop continuous scanning
+                            cameraContainer.style.display = 'none'; // Hide the camera container
+                            cameraOpen = false; // Reset camera state
+                            //toggleCamera();
                         })
                         .catch(err => {
                             console.error('Error scanning barcode:', err);
@@ -55,31 +59,15 @@
         function toggleCamera() {
             const cameraContainer = document.getElementById('cameraContainer');
             if (!cameraOpen) {
+                console.log('Camera Opening');
                 initializeScanner();
                 cameraContainer.style.display = 'block';
             } else {
+                console.log('Camera Closing');
                 codeReader.stopContinuousDecode(); // Stop continuous scanning
                 cameraContainer.style.display = 'none';
             }
             cameraOpen = !cameraOpen; // Toggle camera state
-        }
-
-        function openCamera() {
-            initializeScanner();
-        }
-
-        async function scanBarcode() {
-            const barcode = document.getElementById('barcodeInput').value;
-            const apiUrl = `https://api.vegancheck.me/v0/product/${barcode}`;
-            
-            try {
-                let response = await fetch(apiUrl, { method: "POST" });
-                let data = await response.json();
-                toggleCamera();
-                displayResult(data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
         }
 
         function displayResult(data) {
