@@ -133,10 +133,10 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
   console.log('Confirm POST REQUEST for Register');
   
   const { name, email, password, confirmPassword } = req.body;
-  console.log(req.body);
     if (password !== confirmPassword) {
       console.log('Passwords do not match');
-      return res.render('register', { title: 'Register', Error: 'Passwords do not match. Please try again.' });
+      req.flash('passworderror', 'Passwords do not match. Please try again.');
+      return res.render('register', { title: 'Register'});
     }
 
   try {

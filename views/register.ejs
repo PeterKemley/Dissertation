@@ -10,9 +10,9 @@
     <div class="row justify-content-center">
       <div>
         <div class="registration-form">
-        <% if (Error) { %> 
+        <% if (messages.passworderror) { %> 
         <div class="alert alert-danger" role="alert">
-          <%= Error %>
+          <%= messages.passworderror[0] %>
         </div>
         <% } %>
           <h2>Register</h2>
